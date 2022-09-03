@@ -83,11 +83,6 @@ internal class Program
             }
         }
        
-        void ToClearArray(int[] arr)
-        {
-            Array.Clear(arr, 0, Array.LastIndexOf(arr, 0));
-        }
-        
         bool ToDecimalString(int i, int j, int Dimension, string Way = "")
 
         {
