@@ -1,5 +1,6 @@
 ﻿// Какой массив брать изначально
 // Пятиричный массив и перевод в бинарный вид - в одной функции
+using static MyLib.Sort;
 internal class Program
 {
     // Проверка на "серость"
@@ -60,7 +61,7 @@ internal class Program
         int count = 0;
         PrintBynary();
         ToDecimalString(0, 0, Dim);
-        Array.Sort(decimal_image);
+        QuickSort(decimal_image, 0, decimal_image.Length-1);
         Array.Reverse(decimal_image);
         Array.Resize(ref decimal_image, Array.IndexOf(decimal_image, 0));
         Print(decimal_image);
@@ -86,7 +87,7 @@ internal class Program
         {
             Array.Clear(arr, 0, Array.LastIndexOf(arr, 0));
         }
-
+        
         bool ToDecimalString(int i, int j, int Dimension, string Way = "")
 
         {
