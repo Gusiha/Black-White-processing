@@ -1,6 +1,6 @@
 ﻿namespace MyLib
 {
-    public class Sort
+    public static class Sort
     {
         public static int[] QuickSort(int[] array, int startIndex, int finishIndex)
         {

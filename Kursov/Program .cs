@@ -28,8 +28,34 @@ internal class Program
         .Sum();
     }
 
-    static int[,] bynary_image =
-        {  
+    // Найти размерность 
+    static int FindDim(int[,] arr)
+    {
+        return (int)Math.Sqrt(arr.Length);
+    }
+
+    // Найти максимальное кол-во квадратов (начальная длина десятичного массива)
+    static int FindMaxSquares(int[,] arr)
+    {
+        int count = 0;
+
+        foreach (var item in arr)
+        {
+            if (item == 1)
+                count++;
+        }
+
+        return count;
+    }
+
+    
+    
+
+    private static void Main(string[] args)
+    {
+        // Инициализация
+        int[,] bynary_image =
+        {
             {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 1, 1, 1, 0, 0, 0},
             {0 ,1, 1, 0, 1, 1, 1, 1},
@@ -39,23 +65,8 @@ internal class Program
             {0 ,0, 1, 1, 1, 0, 1, 0},
             {0 ,0, 1, 1, 1, 0, 0, 0}
         };
-    
-    static int Dim = (int)Math.Sqrt(bynary_image.Length);
-    static int FindMaxSquares(int[,] arr)
-    {
-        int count = 0;
-
-        foreach (var item in bynary_image)
-        {
-            if (item == 1)
-                count++;
-        }
-
-        return count;
-    }
-
-    private static void Main(string[] args)
-    {
+        
+        int Dim = FindDim(bynary_image);
 
         int[] decimal_image = new int[FindMaxSquares(bynary_image)];
         int count = 0;
