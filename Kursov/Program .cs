@@ -77,13 +77,13 @@ internal class Program
             "2. Обнуление матрицы\n" +
             "3. Обнуление десятичной строки\n" +
             "4. Вывести изображение\n" +
-            "5. Вывести десятичную строку\n"+
-            "6. Алгоритм [изображение]->[строка]\n"+
+            "5. Вывести десятичную строку\n" +
+            "6. Алгоритм [изображение]->[строка]\n" +
             "7. Алгоритм [строка]->[изображение]\n"
             );
     }
 
-    
+
 
     private static void Main(string[] args)
     {
@@ -106,7 +106,11 @@ internal class Program
                 case 0:
                     {
                         Console.WriteLine("Введите размерность матрицы(четную)");
-                        Dimension = int.Parse(Console.ReadLine());
+                        while (int.TryParse(Console.ReadLine(), out Dimension) == false || Dimension % 2 != 0 || Dimension < 0)
+                        {
+                            Console.WriteLine("Incorrect value. Input Dimension again: ");
+                            Console.WriteLine("Введите размерность матрицы(четную)");
+                        }
                         bynary_image = new int[Dimension, Dimension];
                         Console.WriteLine("Введите бинарное изображение");
 
@@ -115,7 +119,7 @@ internal class Program
                             for (int j = 0; j < Dimension; j++)
                             {
 
-                                while (int.TryParse(Console.ReadLine(), out temp) == false || ! (temp == 0 || temp == 1))
+                                while (int.TryParse(Console.ReadLine(), out temp) == false || !(temp == 0 || temp == 1))
                                 {
                                     Console.WriteLine("Incorrect symbol. Input index again: ");
                                 }
@@ -149,18 +153,28 @@ internal class Program
                     }
                 case 2:
                     {
+                        if (bynary_image == null)
+                        {
+                            Console.WriteLine("Матрица не задана");
+                            continue;
+                        }
                         Array.Clear(bynary_image);
                         continue;
                     }
 
                 case 3:
                     {
+                        if (decimal_image == null)
+                        {
+                            Console.WriteLine("Строка не задана");
+                            continue;
+                        }
                         Array.Clear(decimal_image);
                         continue;
                     }
                 case 4:
                     {
-                        if (bynary_image!=null)
+                        if (bynary_image != null)
                         {
                             PrintBynary(bynary_image, Dimension);
                         }
@@ -172,11 +186,23 @@ internal class Program
                     }
                 case 5:
                     {
-                        Print(decimal_image);
+                        if (decimal_image != null)
+                        {
+                            Print(decimal_image);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Строка не задана");
+                        }
                         continue;
                     }
                 case 6:
                     {
+                        if (bynary_image == null)
+                        {
+                            Console.WriteLine("Матрица не задана");
+                            continue;
+                        }
                         ToDecimalString(0, 0, Dimension);
                         QuickSort(decimal_image, 0, decimal_image.Length - 1);
                         Array.Reverse(decimal_image);
@@ -187,6 +213,11 @@ internal class Program
 
                 case 7:
                     {
+                        if (decimal_image == null)
+                        {
+                            Console.WriteLine("Строка не задана");
+                            continue;
+                        }
                         ToBynaryMatrix();
                         continue;
                     }
@@ -211,7 +242,7 @@ internal class Program
         //};
 
 
-        
+
         //PrintBynary(bynary_image, Dimension);
         //ToDecimalString(0, 0, Dimension);
         //QuickSort(decimal_image, 0, decimal_image.Length - 1);
@@ -222,7 +253,7 @@ internal class Program
         //Print(decimal_image);
         //ToBynaryMatrix();
         //PrintBynary(bynary_image, Dimension);
-        
+
 
         bool ToDecimalString(int i, int j, int Dimension, string Way = "")
 
