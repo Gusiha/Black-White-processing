@@ -206,7 +206,15 @@ internal class Program
                         ToDecimalString(0, 0, Dimension);
                         QuickSort(decimal_image, 0, decimal_image.Length - 1);
                         Array.Reverse(decimal_image);
-                        Array.Resize(ref decimal_image, Array.IndexOf(decimal_image, 0));
+
+                        int NewSize = Array.IndexOf(decimal_image, 0);
+                        
+                        // Нужно ли сжатие
+                        if (NewSize != -1)
+                        {
+                            Array.Resize(ref decimal_image, NewSize);
+                        }
+
                         From5To10(decimal_image);
                         continue;
                     }
@@ -228,7 +236,7 @@ internal class Program
             }
             break;
         }
-        // Инициализация
+
         //int[,] bynary_image =
         //{
         //    {0, 0, 0, 0, 0, 0, 0, 0},
@@ -241,18 +249,6 @@ internal class Program
         //    {0 ,0, 1, 1, 1, 0, 0, 0}
         //};
 
-
-
-        //PrintBynary(bynary_image, Dimension);
-        //ToDecimalString(0, 0, Dimension);
-        //QuickSort(decimal_image, 0, decimal_image.Length - 1);
-        //Array.Reverse(decimal_image);
-        //Array.Resize(ref decimal_image, Array.IndexOf(decimal_image, 0));
-        //Print(decimal_image);
-        //From5To10(decimal_image);
-        //Print(decimal_image);
-        //ToBynaryMatrix();
-        //PrintBynary(bynary_image, Dimension);
 
 
         bool ToDecimalString(int i, int j, int Dimension, string Way = "")
