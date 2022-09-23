@@ -40,7 +40,7 @@ internal class Program
         .Sum();
     }
 
-    // Найти размерность 
+    // Найти размерность
     static int FindDim(int[,] arr)
     {
         return (int)Math.Sqrt(arr.Length);
@@ -93,6 +93,7 @@ internal class Program
         int MenuButton;
         int[] decimal_image = null;
         int temp = -1;
+        int count = 0;
 
         //int[] decimal_image = new int[FindMaxSquares(bynary_image)];
 
@@ -104,7 +105,7 @@ internal class Program
             {
                 case 0:
                     {
-                        Console.WriteLine("Введите размерность матрицы");
+                        Console.WriteLine("Введите размерность матрицы(четную)");
                         Dimension = int.Parse(Console.ReadLine());
                         bynary_image = new int[Dimension, Dimension];
                         Console.WriteLine("Введите бинарное изображение");
@@ -123,20 +124,24 @@ internal class Program
                             }
 
                         }
+                        decimal_image = new int[FindMaxSquares(bynary_image)];
                         continue;
                     }
 
                 case 1:
                     {
+                        int BlackAreas = 0;
                         Console.WriteLine("Ввести десятичный вид изображения");
                         if (Dimension == 0)
                         {
                             Console.WriteLine("Введите размерность будущего изображение");
                             Dimension = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Введите кол-во черных зон");
+                            BlackAreas = int.Parse(Console.ReadLine());
                         }
-                        decimal_image = new int[Dimension];
+                        decimal_image = new int[BlackAreas];
 
-                        for (int i = 0; i < Dimension; i++)
+                        for (int i = 0; i < BlackAreas; i++)
                         {
                             decimal_image[i] = int.Parse(Console.ReadLine());
                         }
@@ -155,7 +160,14 @@ internal class Program
                     }
                 case 4:
                     {
-                        PrintBynary(bynary_image, Dimension);
+                        if (bynary_image!=null)
+                        {
+                            PrintBynary(bynary_image, Dimension);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Матрица не задана");
+                        }
                         continue;
                     }
                 case 5:
@@ -163,6 +175,22 @@ internal class Program
                         Print(decimal_image);
                         continue;
                     }
+                case 6:
+                    {
+                        ToDecimalString(0, 0, Dimension);
+                        QuickSort(decimal_image, 0, decimal_image.Length - 1);
+                        Array.Reverse(decimal_image);
+                        Array.Resize(ref decimal_image, Array.IndexOf(decimal_image, 0));
+                        From5To10(decimal_image);
+                        continue;
+                    }
+
+                case 7:
+                    {
+                        ToBynaryMatrix();
+                        continue;
+                    }
+
 
                 default:
                     break;
@@ -183,12 +211,7 @@ internal class Program
         //};
 
 
-
         
-
-        
-
-        int count = 0;
         //PrintBynary(bynary_image, Dimension);
         //ToDecimalString(0, 0, Dimension);
         //QuickSort(decimal_image, 0, decimal_image.Length - 1);
@@ -237,8 +260,9 @@ internal class Program
             From10To5(decimal_image);
             for (int i = 0; i < decimal_image.Length; i++)
             {
-                FindBlackSquare(0, 0, 8, decimal_image[i]);
+                FindBlackSquare(0, 0, Dimension, decimal_image[i]);
             }
+            From5To10(decimal_image);
 
         }
 
@@ -297,8 +321,5 @@ internal class Program
             }
             Console.WriteLine();
         }
-
-
-
     }
 }
